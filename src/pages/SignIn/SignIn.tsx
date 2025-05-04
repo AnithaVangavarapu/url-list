@@ -1,12 +1,18 @@
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { auth } from "../../Firebase";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext, UserContextProps } from "../../context/UserProvider";
 import { useNavigate } from "react-router-dom";
 const SignIn = () => {
   const contextData = useContext<UserContextProps>(UserContext);
-  const { setIsAuth } = contextData;
+  const { setIsAuth, isAuth } = contextData;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuth) navigate("/");
+    else navigate("/signin");
+  }, [isAuth]);
+
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({
@@ -17,10 +23,12 @@ const SignIn = () => {
     const user = result.user;
     if (user) {
       if (user?.email?.endsWith("@quadone.com")) {
+        localStorage.setItem("isUserLoggedIn", "true");
         setIsAuth(true);
         navigate("/");
       } else {
         await signOut(auth);
+        localStorage.setItem("isUserLoggedIn", "false");
         setIsAuth(false);
         alert("Unautheriged user, access denied");
         navigate("/signin");

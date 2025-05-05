@@ -73,7 +73,7 @@ const AddURL = () => {
             label="Add"
             onClick={handleSubmitURL}
             type="button"
-            className="w-[10%] h-6 bg-blue-950 text-[14px] border-blue-950"
+            className="w-[10%] h-6 bg-blue-950 text-[14px] border-blue-950 rounded-[14px]"
           />
         </div>
       </div>

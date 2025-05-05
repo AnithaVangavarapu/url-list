@@ -41,13 +41,25 @@ const SignIn = () => {
     }
   };
   return (
-    <div className=" flex  justify-center items-center h-screen gap-10">
-      <img src={"/login.svg"} width={"50%"} />
-      <div
-        className="border cursor-pointer flex items-center p-3 gap-2 rounded-md bg-blue-950 text-white font-medium text-[18px]"
-        onClick={handleGoogleLogin}
-      >
-        <img src={"/google_logo.png"} width={20} /> Sign in with google
+    <div className="container mx-auto  place-content-center h-screen ">
+      <div className=" grid grid-cols-2 gap-10 mx-5">
+        <img src={"/login.svg"} className="ml-10" />
+        <div className=" m-auto  border  p-10  border-gray-200 rounded-md shadow-sm bg-gray-50 w-fit  h-fit">
+          <div className="flex flex-col  items-center">
+            <div className="text-[24px] font-medium text-blue-950">
+              Welcome !
+            </div>
+            <p className="text-[10px] mb-5 font-light">
+              Authenticate your details with google!
+            </p>
+            <div
+              className="border cursor-pointer flex justify-center items-center py-2 px-2.5 gap-2 rounded-[20px] bg-blue-950 text-white font-medium text-[14px]"
+              onClick={handleGoogleLogin}
+            >
+              <img src={"/google_logo.png"} width={15} /> Sign in with google
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

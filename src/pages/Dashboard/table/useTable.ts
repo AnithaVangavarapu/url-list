@@ -8,9 +8,7 @@ export const useTable = () => {
   const [showQR, setShowQR] = useState<boolean>(false);
   const [qrValue, setQRValue] = useState<string>("");
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
-  const [hoverKey, setHoverKey] = useState<string | null>(null);
-  const [displayhover, setDisplayHover] = useState<string | null>(null);
-
+  const [copiedCell, setCopiedCell] = useState<"code" | "url" | null>(null);
   const db = getDatabase();
   const dbRef = ref(db, "hosts");
   const valPerPage = 2;
@@ -56,8 +54,12 @@ export const useTable = () => {
     let isCopy = copy(key);
     if (isCopy) {
       setCopiedKey(key);
+      setCopiedCell("code");
       console.log("copied");
-      setTimeout(() => setCopiedKey(null), 2000);
+      setTimeout(() => {
+        setCopiedKey(null);
+        setCopiedCell(null);
+      }, 2000);
     } else {
       setCopiedKey(null);
       console.log("notcopied");
@@ -67,8 +69,12 @@ export const useTable = () => {
     let isCopy = copy(val);
     if (isCopy) {
       setCopiedKey(key);
+      setCopiedCell("url");
       console.log("copied");
-      setTimeout(() => setCopiedKey(null), 2000);
+      setTimeout(() => {
+        setCopiedKey(null);
+        setCopiedCell(null);
+      }, 2000);
     } else {
       setCopiedKey(null);
       console.log("notcopied");
@@ -89,13 +95,10 @@ export const useTable = () => {
     showQR,
     qrValue,
     copiedKey,
-    hoverKey,
-    setHoverKey,
-    displayhover,
-    setDisplayHover,
     data,
     setDataToDisplay,
     setQRValue,
     setShowQR,
+    copiedCell,
   };
 };

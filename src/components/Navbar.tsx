@@ -18,7 +18,7 @@ const Navbar = () => {
         label="Logout"
         onClick={handleLogin}
         type="button"
-        className="border-orange-400 bg-orange-400 text-[14px] w-20 max-h-6"
+        className="border-orange-400 bg-orange-400 text-[14px] w-20 max-h-6 rounded-[16px]"
       />
     </div>
   );

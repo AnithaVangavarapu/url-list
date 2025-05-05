@@ -15,14 +15,11 @@ const Table = () => {
     showQR,
     qrValue,
     copiedKey,
-    hoverKey,
-    setHoverKey,
-    displayhover,
-    setDisplayHover,
     data,
     setDataToDisplay,
     setQRValue,
     setShowQR,
+    copiedCell,
   } = useTable();
   return (
     <div>
@@ -53,56 +50,44 @@ const Table = () => {
                       Show
                     </div>
                   </td>
-                  <td className=" w-[10%]">
-                    {copiedKey === key ? (
+                  <td>
+                    {copiedKey === key && copiedCell === "code" ? (
                       <div className="flex items-center pl-2">
                         <Check width={12} />
                         <p className=" text-[10px]">Copied!</p>
                       </div>
                     ) : (
-                      <div className="relative flex">
-                        <div
-                          onMouseEnter={() => {
-                            setHoverKey(key);
-                            setDisplayHover("code");
-                          }}
-                          onMouseLeave={() => {
-                            setHoverKey(null);
-                            setDisplayHover(null);
-                          }}
-                        >
-                          <Copy
-                            onClick={() => handleCopyCode(key)}
-                            className="cursor-pointer ml-2 "
-                            width={15}
-                          />
-                        </div>
-                        <div
-                          onMouseEnter={() => {
-                            setHoverKey(key);
-                            setDisplayHover("url");
-                          }}
-                          onMouseLeave={() => {
-                            setHoverKey(null);
-                            setDisplayHover(null);
-                          }}
-                        >
-                          <Copy
-                            onClick={() => handleCopyURL(val, key)}
-                            className="cursor-pointer ml-2 "
-                            width={15}
-                            color="#51a2ff"
-                          />
-                        </div>
-                        {hoverKey === key && (
-                          <p className="absolute -top-1.5 text-[8px] left-2">
-                            {`Copy ${displayhover === "code" ? "code" : "url"}`}
-                          </p>
-                        )}
+                      <div
+                        className="flex items-center border rounded-[20px] justify-center gap-0.5 cursor-pointer bg-orange-400 text-white m-1 border-orange-400 hover:bg-white hover:text-orange-400 px-0.5"
+                        onClick={() => handleCopyCode(key)}
+                      >
+                        <Copy width={10} />
+                        <label className="text-[8px] font-medium cursor-pointer">
+                          Copy code
+                        </label>
                       </div>
                     )}
                   </td>
-                  <td className="w-[8%] ">
+
+                  <td>
+                    {copiedKey === key && copiedCell === "url" ? (
+                      <div className="flex items-center pl-2">
+                        <Check width={12} />
+                        <p className=" text-[10px]">Copied!</p>
+                      </div>
+                    ) : (
+                      <div
+                        className="flex items-center border rounded-[20px] justify-center gap-0.5 cursor-pointer bg-blue-950 text-white m-1 border-blue-950 hover:bg-white hover:text-blue-950 px-1"
+                        onClick={() => handleCopyURL(val, key)}
+                      >
+                        <Copy width={10} />
+                        <label className="text-[8px] font-medium cursor-pointer">
+                          Copy URL
+                        </label>
+                      </div>
+                    )}
+                  </td>
+                  <td className="pr-1">
                     <Trash2
                       onClick={() => {
                         if (
@@ -113,7 +98,7 @@ const Table = () => {
                           handleDelete(key);
                         }
                       }}
-                      className="cursor-pointer ml-5"
+                      className="cursor-pointer ml-1 text-red-600"
                       width={15}
                     />
                   </td>
@@ -147,7 +132,7 @@ const Table = () => {
                 setShowQR(false);
               }}
               type="button"
-              className="text-[12px] bg-orange-400 border-orange-400 w-[50%]"
+              className="text-[12px] bg-orange-400 border-orange-400 rounded-[10px] py-0.5 w-[50%]"
             />
           </div>
         </div>

@@ -3,6 +3,7 @@ import { SignIn } from "./pages/SignIn";
 import { UserProvider } from "./context/UserProvider";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
 import { AddURL } from "./pages/Dashboard";
+import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <div className="font-poppins">
@@ -15,6 +16,7 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
+        <ToastContainer />
       </UserProvider>
     </div>
   );

@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Button } from "../../commonComponents";
 import { getDatabase, ref, push, get } from "firebase/database";
-import Table from "./Table";
+import { Table } from "../Dashboard/table";
+import { toast } from "react-toastify";
 const AddURL = () => {
   const [url, setURL] = useState<string>("");
-
   const [error, setError] = useState<boolean>(false);
+
   const handleSubmitURL = async () => {
     if (!url.trim()) {
       setError(true);
@@ -14,7 +15,11 @@ const AddURL = () => {
     try {
       new URL(url);
     } catch (error) {
-      alert("Enter valid url");
+      toast.error("Enter valid url!", {
+        style: {
+          fontSize: "12px",
+        },
+      });
       return;
     }
     const db = getDatabase();
@@ -27,39 +32,52 @@ const AddURL = () => {
         const values = Object.values(data) as string[];
         const isDuplicate = values.includes(url);
         if (isDuplicate) {
-          alert("This URL already exists!");
+          toast.warning("This URL already exists!", {
+            style: {
+              fontSize: "12px",
+            },
+          });
+          // setURL("");
           return;
         }
       }
       await push(dbRef, url);
-      alert("Added successfully");
+      toast.success("URL added successfully", {
+        style: {
+          fontSize: "12px",
+        },
+      });
       setURL("");
     } catch (error) {
-      alert("Something went wrong!");
+      toast.error("Something went wrong!", {
+        style: {
+          fontSize: "12px",
+        },
+      });
     }
   };
   return (
-    <div className="container border mt-10 mx-auto w-[80%] py-5 px-[5%]">
+    <div className="container  mt-5 mx-auto w-[80%] py-5 px-[5%]">
       <div>
-        <h1 className="">New URL</h1>
-        <div className="flex flex-row gap-2 w-full">
+        <h1 className="text-[14px] font-medium mb-1">New URL</h1>
+        <div className="flex flex-row gap-2 w-full items-center">
           <div className="w-[90%]">
             <input
               type="url"
               value={url}
               onChange={(e) => setURL(e.target.value)}
-              className="border w-full p-0.5 focus:outline-blue-200 rounded-[2px]"
+              className="border w-full p-1.5 focus:outline-blue-200 rounded-[2px] border-gray-200 text-[10px]"
             />
-            {error && <p className="text-red-500 text-sm mt-2">Enter URL</p>}
           </div>
           <Button
             label="Add"
             onClick={handleSubmitURL}
             type="button"
-            className="text-black w-[10%] py-0.5"
+            className="w-[10%] h-6 bg-blue-950 text-[14px] border-blue-950"
           />
         </div>
       </div>
+      {error && <p className="text-red-400 text-[10px] mt-1">Enter URL</p>}
       <Table />
     </div>
   );

@@ -12,9 +12,14 @@ const Navbar = () => {
     setIsAuth(false);
   };
   return (
-    <div className="flex justify-between border p-5 bg-gradient-to-r from-blue-950 to-blue-800">
+    <div className="flex justify-between border h-[10%] bg-blue-950 py-2 px-3 items-center">
       <p className="text-[24px] font-medium text-white">Dashboard</p>
-      <Button label="Logout" onClick={handleLogin} type="button" />
+      <Button
+        label="Logout"
+        onClick={handleLogin}
+        type="button"
+        className="border-orange-400 bg-orange-400 text-[14px] w-20 max-h-6"
+      />
     </div>
   );
 };

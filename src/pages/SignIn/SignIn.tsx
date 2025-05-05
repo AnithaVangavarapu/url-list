@@ -3,6 +3,7 @@ import { auth } from "../../Firebase";
 import { useContext, useEffect } from "react";
 import { UserContext, UserContextProps } from "../../context/UserProvider";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 const SignIn = () => {
   const contextData = useContext<UserContextProps>(UserContext);
   const { setIsAuth, isAuth } = contextData;
@@ -30,15 +31,20 @@ const SignIn = () => {
         await signOut(auth);
         localStorage.setItem("isUserLoggedIn", "false");
         setIsAuth(false);
-        alert("Unautheriged user, access denied");
+        toast.error("Unautheriged user, access denied!", {
+          style: {
+            fontSize: "12px",
+          },
+        });
         navigate("/signin");
       }
     }
   };
   return (
-    <div className=" flex  justify-center items-center h-screen">
+    <div className=" flex  justify-center items-center h-screen gap-10">
+      <img src={"/login.svg"} width={"50%"} />
       <div
-        className="border cursor-pointer flex items-center w-fit p-3 gap-2 rounded-[2px] bg-gradient-to-r from-blue-950 to-blue-800 text-white font-medium text-[18px]"
+        className="border cursor-pointer flex items-center p-3 gap-2 rounded-md bg-blue-950 text-white font-medium text-[18px]"
         onClick={handleGoogleLogin}
       >
         <img src={"/google_logo.png"} width={20} /> Sign in with google

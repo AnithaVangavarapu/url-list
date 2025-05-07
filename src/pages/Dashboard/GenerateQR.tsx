@@ -11,7 +11,7 @@ const GenerateQR = () => {
     if (url !== "") {
       axios
         .post(
-          "/api/Token/generate",
+          "https://centraleproapi.clinion.com/api/Token/generate",
           {
             baseUrl: url,
           },

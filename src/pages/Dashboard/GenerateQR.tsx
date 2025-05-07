@@ -6,12 +6,12 @@ const GenerateQR = () => {
   const [qrValue, setQrValue] = useState<string>("");
   const [showQR, setShowQR] = useState<boolean>(false);
   const [url, setURL] = useState<string>("");
-
+  const apiurl = import.meta.env.VITE_API_BASE_URL;
   const callApi = () => {
     if (url !== "") {
       axios
         .post(
-          "api/Token/generate",
+          `${apiurl}/api/Token/generate`,
           {
             baseUrl: url,
           },

@@ -3,6 +3,7 @@ import { Button } from "../../commonComponents";
 import { getDatabase, ref, push, get } from "firebase/database";
 import { Table } from "../Dashboard/table";
 import { toast } from "react-toastify";
+
 const AddURL = () => {
   const [url, setURL] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
